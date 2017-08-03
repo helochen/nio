@@ -21,7 +21,7 @@ public class NIOClient {
 
     private static ByteBuffer receiveBuffer = ByteBuffer.allocate(blockSize);
 
-    private final static InetSocketAddress serverAddress = new InetSocketAddress("127.0.0.1", 10280);
+    private final static InetSocketAddress serverAddress = new InetSocketAddress("127.0.0.1", 10281);
 
     public static void main(String[] args) throws IOException {
         SocketChannel socketChannel = SocketChannel.open();
@@ -30,7 +30,11 @@ public class NIOClient {
         Selector selector = Selector.open();
         socketChannel.register(selector, SelectionKey.OP_CONNECT);
         /*注册链接操作*/
-        socketChannel.connect(serverAddress);
+        if (socketChannel.connect(serverAddress)) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
 
         /*遍历选择器的KEY*/
         Set<SelectionKey> selectionKeys;

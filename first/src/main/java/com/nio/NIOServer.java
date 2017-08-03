@@ -50,7 +50,6 @@ public class NIOServer {
                 /*业务逻辑*/
                 handleKey(selectionKey);
             }
-
         }
     }
 
@@ -68,7 +67,8 @@ public class NIOServer {
             client.configureBlocking(false);
             client.register(selector, SelectionKey.OP_READ);
 
-        } else if (selectionKey.isReadable()) {
+        }
+        if (selectionKey.isReadable()) {
             client = (SocketChannel) selectionKey.channel();
             count = client.read(receiveBuffer);
             if (count > 0) {
@@ -77,7 +77,8 @@ public class NIOServer {
                 client.register(selector, SelectionKey.OP_WRITE);
 
             }
-        } else if (selectionKey.isWritable()) {
+        }
+        if (selectionKey.isWritable()) {
             sendBuffer.clear();
             client = (SocketChannel) selectionKey.channel();
             /*发送的数据*/
@@ -92,7 +93,7 @@ public class NIOServer {
     }
 
     public static void main(String[] args) throws IOException {
-        int port = 10280;
+        int port = 10281;
         NIOServer nioServer = new NIOServer(port);
         nioServer.listen();
 
