@@ -29,6 +29,7 @@ public class NIOClient {
         /*打开选择器*/
         Selector selector = Selector.open();
         socketChannel.register(selector, SelectionKey.OP_CONNECT);
+        System.out.println(selector.isOpen());
         /*注册链接操作*/
         socketChannel.connect(serverAddress);
 
@@ -83,6 +84,7 @@ public class NIOClient {
                 }
             }
             selectionKeys.clear();
+            selector.select();
         }
     }
 }

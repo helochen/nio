@@ -49,6 +49,7 @@ public class NIOServer {
                 iterator.remove();
                 /*业务逻辑*/
                 handleKey(selectionKey);
+                selector.select();
             }
 
         }
@@ -87,6 +88,7 @@ public class NIOServer {
             /*发送至服务器*/
             client.write(sendBuffer);
             System.out.println("服务端发送给客户端：" + sendText);
+            client.register(selector, SelectionKey.OP_READ);
         }
 
     }
