@@ -95,7 +95,7 @@ public class NIOServer {
     }
 
     public static void main(String[] args) throws IOException {
-        int port = 10281;
+        int port = 10282;
         NIOServer nioServer = new NIOServer(port);
         nioServer.listen();
 
